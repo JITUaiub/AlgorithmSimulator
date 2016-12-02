@@ -75,7 +75,7 @@ public class ExternalsLinksMenu extends JPanel {
 	private void initialize_All() {
 		
 		jList.setFont(LIST_FONT);
-        jList.setPrototypeCellValue("ABCDEFGHIJKLMNOP ABCDE");
+        jList.setPrototypeCellValue("ABCDEFGHIJKLMNOP");
         jList.setVisibleRowCount(LIST_VISIBLE_ROW_COUNT);
         jList.setBackground(LIST_BG);
         

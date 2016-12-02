@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.JS.AlgorithmSimulator.Button.Button;
 import com.JS.AlgorithmSimulator.MainMenu.MainMenu;
+import com.JS.AlgorithmSimulator.Searching.LinearSearch;
 
 public class CatagoriesMenu extends JPanel {
 	/// Main JList Items
@@ -44,7 +45,7 @@ public class CatagoriesMenu extends JPanel {
     private final String OPEN_BUTTON = "Open Simulator";
     private final String BACK_BUTTON = "Back";
     
-    private final Color LIST_BG = Color.CYAN;
+    private final Color LIST_BG = Color.WHITE;
     
 
     // JList field created with constant array data
@@ -66,6 +67,7 @@ public class CatagoriesMenu extends JPanel {
     	this.mainPanel = mainPanel;
     	listPanel.setBackground(Color.WHITE);
     	setBackground(Color.WHITE);
+    	setVisible(true);
     	
         initialize_All();
     }
@@ -121,9 +123,12 @@ public class CatagoriesMenu extends JPanel {
 					JOptionPane.showMessageDialog(null, ERROR_LOG, ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 					
 				}else {
-					///Add URL to Here for SecondJList
-					if(secondJList.getSelectedValue().equals("Bubble Sort")){
+					///Add Simulator Actions
+					if(secondJList.getSelectedValue().equals("Linear Search")){
+						setVisible(false);
+						removeAll();
 						
+						mainPanel.add(new LinearSearch(mainPanel));
 					}
 						
 				}

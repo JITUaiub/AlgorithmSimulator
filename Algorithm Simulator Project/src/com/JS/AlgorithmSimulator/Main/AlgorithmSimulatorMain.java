@@ -17,7 +17,7 @@ public class AlgorithmSimulatorMain extends JFrame {
 	
 	private final Color BACKGROUND_COLOR = Color.WHITE;
 	
-	private final int MINIMUM_WINDOW_WIDTH = 730;
+	private final int MINIMUM_WINDOW_WIDTH = 1000;
 	private final int MINUMUM_WINDOW_HEIGHT = 600;
 	
 	private JPanel mainPanel;
@@ -49,6 +49,7 @@ public class AlgorithmSimulatorMain extends JFrame {
 	public void setVisible(boolean arg){
 		super.setVisible(arg);
 	}
+	
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

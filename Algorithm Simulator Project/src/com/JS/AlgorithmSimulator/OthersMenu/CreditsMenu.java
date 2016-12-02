@@ -43,22 +43,22 @@ public class CreditsMenu extends JPanel{
 	private final String BACK_BUTTON_TEXT = "Back";
 	private final String CREDITS_STRING = "\"Developers\"";
 	
-	private final String DEVELOPER2_MAIL_USERNAME = "Shuvo";
+	private final String DEVELOPER2_MAIL_USERNAME = "hasanshuvom884@gmail.com";
 	private final String DEVELOPER1_MAIL_USERNAME = "jitu.cse_aiub@outlook.com";
-	private final String DEVELOPER2_LINKEDIN_USERNAME = "Shuvo";
+	private final String DEVELOPER2_LINKEDIN_USERNAME = "Mehedi Hasan Shuvo";
 	private final String DEVELOPER1_LINKEDIN_USERNAME = "MdNashidKamal";
-	private final String DEVELOPER2_STACKOVERFLOW_USERNAME = "Shuvo";
+	private final String DEVELOPER2_STACKOVERFLOW_USERNAME = "RPM Shuvo ";
 	private final String DEVELOPER1_STACKOVERFLOW_USERNAME = "Md. Nashid Kamal";
-	private final String DEVELOPER2_GITHUB_USERNAME = "Shuvo";
+	private final String DEVELOPER2_GITHUB_USERNAME = "RPMShuvo";
 	private final String DEVELOPER1_GITHUB_USERNAME = "JituAIUB";
 	
-	private final String DEVELOPER2_MAIL_ID = "Shuvo";
+	private final String DEVELOPER2_MAIL_ID = "hasanshuvom884@gmail.com";
 	private final String DEVELOPER1_MAIL_ID = "jitu.cse_aiub@outlook.com";
-	private final String DEVELOPER2_LINKEDIN_ID = "Shuvo";
+	private final String DEVELOPER2_LINKEDIN_ID = "https://www.linkedin.com/in/rpmshuvo";
 	private final String DEVELOPER1_LINKEDIN_ID = "https://www.linkedin.com/in/mdnashidkamal";
-	private final String DEVELOPER2_STACKOVERFLOW_ID = "Shuvo";
+	private final String DEVELOPER2_STACKOVERFLOW_ID = "http://stackoverflow.com/users/7182997/rpm-shuvo?tab=profile";
 	private final String DEVELOPER1_STACKOVERFLOW_ID = "http://stackoverflow.com/users/4926566/md-nashid-kamal?tab=profile";
-	private final String DEVELOPER2_GITHUB_ID = "Shuvo";
+	private final String DEVELOPER2_GITHUB_ID = "https://github.com/rpmshuvo";
 	private final String DEVELOPER1_GITHUB_ID = "https://github.com/jituaiub";
 	
 	private final int BORDER_THICKNESS_BORDERLAYOUT = 5;
