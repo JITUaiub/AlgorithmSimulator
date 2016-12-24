@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.JS.AlgorithmSimulator.Custom.CustomJOptionPane;
+
 public class LinearSearchSimulation extends JPanel implements Runnable{
-	
-	private final int DELAY = 50;
+	private static final long serialVersionUID = 1L;
 	private int searchVal = 0;
+	private final Font DRAW_FONT = new Font("calibiri", Font.BOLD, 25);
 	
 	///Variables For Draw
 	private int [] array;
@@ -22,8 +23,12 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	
 	private int node = 0;
 	private int count = 0;
+	private int searchCount = 0;
+	private int time = 1;
+	
 	private Thread thread;
 	private boolean threadFlag = false;
+	private boolean searchFlag = false;
 	
 	    public LinearSearchSimulation(int inputSize){
 	    	array = new int [inputSize+1];
@@ -42,12 +47,11 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	    }
 	    
 	    
-	///Work here for Graphics
 	    @Override
 	    public void paintComponent(Graphics g) {
 	    	super.paintComponent(g);
-	    	/// Start Draw
-	    	g.setFont(new Font("calibiri", Font.BOLD, 30));
+
+	    	g.setFont(DRAW_FONT);
 	    	
 	    	if(node == 1)
 	    		g.setColor(ACTIVE_COLOR);
@@ -94,52 +98,49 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	    	g.setColor(Color.BLACK);
 	    	g.drawString(arrayString[4], (5*getWidth()/5-110), (getHeight()/2)+10);
 	    	
-	    	/// End Draw
+	    	
+	    	g.drawString("Search Value: " + searchVal, (3*getWidth()/5-220), (getHeight()/2)+110);
+	    	
 	    	g.dispose();
 	    }
 	    
-	///Work here for Update Graphics
 	    public void update() {	
 	    	
-	    	/// Start Updating
-	    	if (array[node] == searchVal) {
-				JOptionPane.showMessageDialog(null, "Value Found", "Found!!!" , JOptionPane.INFORMATION_MESSAGE);
-				stop();
-	    	}else {
-				if(count == 5){
-					JOptionPane.showMessageDialog(null, "Value Not Found", "Not Found!!!" , JOptionPane.INFORMATION_MESSAGE);
-					stop();
+	    	if(count == 6){
+				if (searchFlag) {
+					new CustomJOptionPane("COMPLETED !!!", "Searching Completed.", "Done");
 				}
-			}
-	    	System.out.println(node);
-	    	///Stop updating
+	    		
+				if (!searchFlag) {
+					new CustomJOptionPane("Not Found!!!", "Value Not Found.", "Ok");
+					new CustomJOptionPane("COMPLETED !!!", "Searching Completed.", "Done");
+				}
+				stop();
+	    	}
+	    	
+	    	if (array[node] == searchVal) {
+	    		searchCount++;
+	    		searchFlag = true;
+	    		new CustomJOptionPane("Found!!!", ("Value Found.\n" + searchCount + " times."), "Ok");
+	    	}
+	    	
 	    }
 	    
   
 	    @Override
 	    public void run() {
-	        ///long beforeTime, timeDiff, sleep;
-
-	        ///beforeTime = System.currentTimeMillis();
-
 	        while (threadFlag) {
 
 	        	repaint();
 	            update();
 
-	           /// timeDiff = System.currentTimeMillis() - beforeTime;
-	           /// sleep = DELAY - timeDiff;
-
-	           /// if (sleep < 0)
-	            ///    sleep = 2;
 	            try {
-	                Thread.sleep(3000);
+	                Thread.sleep(time*1000);
 	            } catch (InterruptedException e) {
 	                System.out.println("interrupted");
 	            }
 	            node++;
 	            count++;
-	            ///beforeTime = System.currentTimeMillis();
 	        }
 	    }
 	    
@@ -159,7 +160,9 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	    	}
 	    	node = 0;
 	    	count = 0;
+	    	searchCount = 0;
 	    	threadFlag = false;
+	    	searchFlag = false;
 	    	try {
 	    		thread.join();
 	    	} catch (InterruptedException e) {
@@ -167,13 +170,8 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	    	}
 	    }
 	    
-	    public void show() {
-			for (int i = 0; i < array.length; i++) {
-				System.out.println(array[i]);
-			}
-		}
-	    
 	    public void setArrayValue(int input1, int input2, int input3, int input4, int input5, int searchVal){   	
+	    	array[0] = -1;
 	    	array[1] = input1;
 	    	array[2] = input2;
 	    	array[3] = input3;
@@ -192,5 +190,9 @@ public class LinearSearchSimulation extends JPanel implements Runnable{
 	    public boolean getThreadState(){
 	    	return threadFlag;
 	    }
+	    
+	    public void setTime(int time) {
+			this.time = time;
+		}
 	    
 }

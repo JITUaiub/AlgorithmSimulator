@@ -1,4 +1,4 @@
-package com.JS.AlgorithmSimulator.Searching;
+package com.JS.AlgorithmSimulator.Sorting;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,17 +8,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.JS.AlgorithmSimulator.Custom.Button;
-import com.JS.AlgorithmSimulator.Custom.CustomJOptionPane;
 import com.JS.AlgorithmSimulator.Custom.CustomTextField;
 import com.JS.AlgorithmSimulator.OthersMenu.CatagoriesMenu;
+import com.JS.AlgorithmSimulator.Custom.CustomJOptionPane;
 
-public class LinearSearch extends JPanel{
+public class BubbleSort extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final Font LABEL_FONT = new Font("courier", Font.BOLD, 30);
 	private final Font INPUT_FONT = new Font("courier", Font.BOLD, 20);
@@ -34,9 +36,10 @@ public class LinearSearch extends JPanel{
 	private JPanel inputPanelTxt;
 	private JPanel inputPanelBtn;
 	private JPanel drawPanel;
-	private JPanel timePanel;
+	private JPanel sortingTypePanel;
 	
 	private JLabel lblTitle;
+	private JLabel lblOrder;
 	private JLabel lblTime;
 	
 	private Button btnBack;
@@ -50,23 +53,34 @@ public class LinearSearch extends JPanel{
 	private CustomTextField txtInput5;
 	private CustomTextField txtTime;
 	
-	private CustomTextField txtSearch;
+	private JRadioButton btnAscending;
+	private JRadioButton btnDescending;
+	private ButtonGroup radioButtonGroup;
 	
-	/* 
-	 * Declare Simulation Object here
-	 */
-	private LinearSearchSimulation linearSearchSimulation;
+	private BubbleSortSimulation bubbleSortSimulation;
 	
-	public LinearSearch(JPanel mainPanel) {
+	public BubbleSort(JPanel mainPanel) {
 		this.mainPanel = mainPanel;	
 		setBackground(BACKGROUND_COLOR);
 		setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
 		setLayout(new BorderLayout(BORDER_SIZE, BORDER_SIZE));
 		
-		/*
-		 * Initialize Simulation Object Here
-		 */
-		linearSearchSimulation = new LinearSearchSimulation(5);
+		bubbleSortSimulation = new BubbleSortSimulation(5);
+		
+		btnAscending = new JRadioButton("Ascending");
+		btnAscending.setBackground(BACKGROUND_COLOR);
+		btnAscending.setFocusPainted(false);
+		btnAscending.setSelected(false);
+		btnAscending.setSelected(true);
+		
+		btnDescending = new JRadioButton("Descending");
+		btnDescending.setBackground(BACKGROUND_COLOR);
+		btnDescending.setFocusPainted(false);
+		btnDescending.setSelected(false);
+		
+		radioButtonGroup = new ButtonGroup();
+		radioButtonGroup.add(btnAscending);
+		radioButtonGroup.add(btnDescending);
 		
 		initialize_All();
 	}
@@ -74,8 +88,10 @@ public class LinearSearch extends JPanel{
 	private void initialize_All() {
 		
 		///Top Menu Label
-		lblTitle = new JLabel("\"Linear Search\"", SwingConstants.CENTER);
+		lblTitle = new JLabel("\"Bubble Sort\"", SwingConstants.CENTER);
 		lblTitle.setFont(LABEL_FONT);
+		lblOrder = new JLabel("Order: ", SwingConstants.CENTER);
+		lblOrder.setFont(LABEL_FONT);
 		
 		///Center Panel
 		centerPanel = new JPanel();
@@ -86,7 +102,6 @@ public class LinearSearch extends JPanel{
 		inputPanel = new JPanel();
 		inputPanel.setBackground(BACKGROUND_COLOR);
 		inputPanel.setLayout(new BorderLayout(0, 0));
-		
 		
 		/// Input Panel - Input Area
 		inputPanelTxt = new JPanel();
@@ -99,6 +114,12 @@ public class LinearSearch extends JPanel{
 		inputPanelBtn.setBackground(BACKGROUND_COLOR);
 		inputPanelBtn.setLayout(new BoxLayout(inputPanelBtn, BoxLayout.Y_AXIS));
 		inputPanelBtn.setBorder(BorderFactory.createEmptyBorder(0, BORDER_SIZE - 5, 0, 0));
+		
+		sortingTypePanel = new JPanel();
+		sortingTypePanel.setBackground(BACKGROUND_COLOR);
+		sortingTypePanel.setLayout(new BoxLayout(sortingTypePanel, BoxLayout.Y_AXIS));
+		sortingTypePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, BORDER_SIZE - 5));
+		
 		
 		/// Input Panel - Text Fields
 		txtInput1 = new CustomTextField("Input 1");
@@ -116,10 +137,6 @@ public class LinearSearch extends JPanel{
 		txtInput5 = new CustomTextField("Input 5");
 		txtInput5.setHorizontalAlignment(JTextField.CENTER);
 		txtInput5.setFont(INPUT_FONT);
-		txtSearch = new CustomTextField("Search Value");
-		txtSearch.setHorizontalAlignment(JTextField.CENTER);
-		txtSearch.setFont(INPUT_FONT);
-		txtSearch.setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
 		
 		/// Input Panel - Buttons
 		btnStartSimulation = new Button("Start");
@@ -131,17 +148,12 @@ public class LinearSearch extends JPanel{
 		drawPanel.setBackground(BACKGROUND_COLOR);
 		drawPanel.setBorder(BorderFactory.createLineBorder(BACKGROUND_BORDER_COLOR, BORDER_SIZE));
 		
-		timePanel = new JPanel();
-		timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.Y_AXIS));
-		timePanel.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
-		timePanel.setBackground(BACKGROUND_COLOR);
-		
-		lblTime = new JLabel("Time (s): ");
+		lblTime = new JLabel("Time (s):");
 		lblTime.setFont(LABEL_FONT);
 		
 		txtTime = new CustomTextField("Iteration time");
-		txtTime.setFont(INPUT_FONT);
 		txtTime.setHorizontalAlignment(JTextField.CENTER);
+		txtTime.setFont(INPUT_FONT);
 		
 		/// Input Panel - Button Listeners
 		btnStartSimulation.addActionListener(new ActionListener() {
@@ -149,18 +161,23 @@ public class LinearSearch extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				{
-					if (txtInput1.getText().equals("") || txtInput2.getText().equals("") || txtInput3.getText().equals("") || txtInput4.getText().equals("") || txtInput5.getText().equals("") || txtSearch.getText().equals("") || txtTime.getText().equals("")) {
-						new CustomJOptionPane("Error !!!", "Please fill all textbox", "OK");
+					if (txtInput1.getText().equals("") || txtInput2.getText().equals("") || txtInput3.getText().equals("") || txtInput4.getText().equals("") || txtInput5.getText().equals("") || txtTime.getText().equals("")) {
+						new CustomJOptionPane("Error !!!", "Please Enter all Inputs", "OK");
 					}else {
-						if (Integer.valueOf(txtTime.getText()) == 0) {
+						if(Integer.valueOf(txtTime.getText()) ==0){
 							new CustomJOptionPane("Error !!!", "Minimum time should be 1 (one) second.", "OK");
 						}else {
-							if (!linearSearchSimulation.getThreadState()) {
-								linearSearchSimulation.setTime(Integer.valueOf(txtTime.getText()));
-								linearSearchSimulation.setArrayValue(Integer.valueOf(txtInput1.getText()), Integer.valueOf(txtInput2.getText()), Integer.valueOf(txtInput3.getText()), Integer.valueOf(txtInput4.getText()), Integer.valueOf(txtInput5.getText()), Integer.valueOf(txtSearch.getText()));
+							if (!bubbleSortSimulation.getThreadState()) {
+								bubbleSortSimulation.setTime(Integer.valueOf(txtTime.getText()));
+								if (btnAscending.isSelected()) {
+									bubbleSortSimulation.setOrder("Asc");
+								}else {
+									bubbleSortSimulation.setOrder("Dsc");
+								}
+								bubbleSortSimulation.setArrayValue(Integer.valueOf(txtInput1.getText()), Integer.valueOf(txtInput2.getText()), Integer.valueOf(txtInput3.getText()), Integer.valueOf(txtInput4.getText()), Integer.valueOf(txtInput5.getText()));
 							}
 							
-							linearSearchSimulation.start();
+							bubbleSortSimulation.start();
 						}
 					}
 				}
@@ -171,7 +188,7 @@ public class LinearSearch extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				linearSearchSimulation.stop();	/// Simulation Stop
+				bubbleSortSimulation.stop();
 			}
 		});
 		
@@ -181,7 +198,7 @@ public class LinearSearch extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				linearSearchSimulation.stop();
+				bubbleSortSimulation.stop();
 				setVisible(false);
 				removeAll();
 				
@@ -195,21 +212,23 @@ public class LinearSearch extends JPanel{
 		inputPanelTxt.add(txtInput3);
 		inputPanelTxt.add(txtInput4);
 		inputPanelTxt.add(txtInput5);
-		inputPanelBtn.add(txtSearch);
 		
 		/// Adding Button to text fields
 		inputPanelBtn.add(btnStartSimulation);
 		inputPanelBtn.add(btnStopSimulation);
 		
-		timePanel.add(lblTime);
-		timePanel.add(txtTime);
-		
 		/// Adding Text Components
+		sortingTypePanel.add(lblOrder);
+		sortingTypePanel.add(btnAscending);
+		sortingTypePanel.add(btnDescending);
+		sortingTypePanel.add(lblTime);
+		sortingTypePanel.add(txtTime);
+		
+		inputPanel.add(sortingTypePanel, BorderLayout.WEST);
 		inputPanel.add(inputPanelTxt, BorderLayout.CENTER);
 		inputPanel.add(inputPanelBtn, BorderLayout.EAST);
-		inputPanel.add(timePanel, BorderLayout.WEST);
-		
-		drawPanel.add(linearSearchSimulation, BorderLayout.CENTER); 
+
+		drawPanel.add(bubbleSortSimulation, BorderLayout.CENTER); 
 		
 		/// Adding All visual to Center
 		centerPanel.add(inputPanel, BorderLayout.PAGE_START);
@@ -219,6 +238,5 @@ public class LinearSearch extends JPanel{
 		add(lblTitle, BorderLayout.PAGE_START);
 		add(centerPanel, BorderLayout.CENTER);
 		add(btnBack, BorderLayout.PAGE_END);
-		
 	}
 }

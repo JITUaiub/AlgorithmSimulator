@@ -18,21 +18,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.JS.AlgorithmSimulator.Button.Button;
+import com.JS.AlgorithmSimulator.Custom.Button;
 import com.JS.AlgorithmSimulator.OthersMenu.CatagoriesMenu;
 import com.JS.AlgorithmSimulator.OthersMenu.CreditsMenu;
 import com.JS.AlgorithmSimulator.OthersMenu.ExternalsLinksMenu;
 
 public class MainMenu extends JPanel{
+	private static final long serialVersionUID = 1L;
 	
-	///Button Space
 	private final int BUTTON_SPACE_X = 0;
 	private final int BUTTON_SPACE_Y = 10;
+	
 	private final Color BACKGROUND_COLOR = Color.WHITE;
 	
-	private Button btnCategory = new Button("Category");
+	private Button btnCategory = new Button("Categories");
 	private Button btnExternalLinks = new Button("External Links");
-	private Button btnCredits = new Button("Credits");
+	private Button btnCredits = new Button("Developers");
 	private Button btnExit = new Button("Exit");
 	
 	private JLabel lblApplicationIcon;

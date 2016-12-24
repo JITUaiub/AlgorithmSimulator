@@ -26,31 +26,33 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
-import com.JS.AlgorithmSimulator.Button.Button;
+import com.JS.AlgorithmSimulator.Custom.Button;
 import com.JS.AlgorithmSimulator.MainMenu.MainMenu;
 
 public class CreditsMenu extends JPanel{
-	
-	///Constants
-	private final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR);
+	private static final long serialVersionUID = 1L;
+
+	private Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR);
 	
 	private final Font LABEL_FONT = new Font("courier", Font.BOLD, 30);
 	private final Font NAME_FONT = new Font("Calibiri", Font.BOLD, 20);
+	
 	private final Color BACKGROUND_COLOR = Color.WHITE;
 	private final Color BORDER_COLOR = Color.BLACK;
+	
 	private final String DEVELOPER_NAME_1 = "MD. NASHID KAMAL";
 	private final String DEVELOPER_NAME_2 = "MEHEDI HASAN SHUVO";
 	private final String BACK_BUTTON_TEXT = "Back";
 	private final String CREDITS_STRING = "\"Developers\"";
 	
-	private final String DEVELOPER2_MAIL_USERNAME = "hasanshuvom884@gmail.com";
-	private final String DEVELOPER1_MAIL_USERNAME = "jitu.cse_aiub@outlook.com";
-	private final String DEVELOPER2_LINKEDIN_USERNAME = "Mehedi Hasan Shuvo";
-	private final String DEVELOPER1_LINKEDIN_USERNAME = "MdNashidKamal";
-	private final String DEVELOPER2_STACKOVERFLOW_USERNAME = "RPM Shuvo ";
-	private final String DEVELOPER1_STACKOVERFLOW_USERNAME = "Md. Nashid Kamal";
-	private final String DEVELOPER2_GITHUB_USERNAME = "RPMShuvo";
-	private final String DEVELOPER1_GITHUB_USERNAME = "JituAIUB";
+	private final String DEVELOPER2_MAIL_USERNAME = "Mail to Mehedi Hasan Shuvo";
+	private final String DEVELOPER1_MAIL_USERNAME = "Mail to Md. Nashid Kamal";
+	private final String DEVELOPER2_LINKEDIN_USERNAME = "Follow on LinkedIn";
+	private final String DEVELOPER1_LINKEDIN_USERNAME = "Follow on LinkedIn";
+	private final String DEVELOPER2_STACKOVERFLOW_USERNAME = "Find me on StackOverFlow";
+	private final String DEVELOPER1_STACKOVERFLOW_USERNAME = "Find me on StackOverFlow";
+	private final String DEVELOPER2_GITHUB_USERNAME = "Follow on GitHub";
+	private final String DEVELOPER1_GITHUB_USERNAME = "Follow on GitHub";
 	
 	private final String DEVELOPER2_MAIL_ID = "hasanshuvom884@gmail.com";
 	private final String DEVELOPER1_MAIL_ID = "jitu.cse_aiub@outlook.com";
@@ -240,7 +242,7 @@ public class CreditsMenu extends JPanel{
                 try {
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (URISyntaxException | IOException ex) {
-                    //It looks like there's a problem
+                    ex.printStackTrace();
                 }
             }
         });
@@ -253,7 +255,7 @@ public class CreditsMenu extends JPanel{
                 try {
                     Desktop.getDesktop().mail(new URI("mailto:" + mailID));
                 } catch (URISyntaxException | IOException ex) {
-                    //It looks like there's a problem
+                    ex.printStackTrace();
                 }
             }
         });

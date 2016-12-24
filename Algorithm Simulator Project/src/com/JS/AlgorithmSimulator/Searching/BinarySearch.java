@@ -18,7 +18,7 @@ import com.JS.AlgorithmSimulator.Custom.CustomJOptionPane;
 import com.JS.AlgorithmSimulator.Custom.CustomTextField;
 import com.JS.AlgorithmSimulator.OthersMenu.CatagoriesMenu;
 
-public class LinearSearch extends JPanel{
+public class BinarySearch extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final Font LABEL_FONT = new Font("courier", Font.BOLD, 30);
 	private final Font INPUT_FONT = new Font("courier", Font.BOLD, 20);
@@ -40,6 +40,8 @@ public class LinearSearch extends JPanel{
 	private JLabel lblTime;
 	
 	private Button btnBack;
+	
+	/// Input Panel components
 	private Button btnStartSimulation;
 	private Button btnStopSimulation;
 	
@@ -50,14 +52,14 @@ public class LinearSearch extends JPanel{
 	private CustomTextField txtInput5;
 	private CustomTextField txtTime;
 	
-	private CustomTextField txtSearch;
+	private JTextField txtSearch;
 	
 	/* 
 	 * Declare Simulation Object here
 	 */
-	private LinearSearchSimulation linearSearchSimulation;
+	private BinarySearchSimulation binarySearchSimulation;
 	
-	public LinearSearch(JPanel mainPanel) {
+	public BinarySearch(JPanel mainPanel) {
 		this.mainPanel = mainPanel;	
 		setBackground(BACKGROUND_COLOR);
 		setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
@@ -66,7 +68,7 @@ public class LinearSearch extends JPanel{
 		/*
 		 * Initialize Simulation Object Here
 		 */
-		linearSearchSimulation = new LinearSearchSimulation(5);
+		binarySearchSimulation = new BinarySearchSimulation(5);
 		
 		initialize_All();
 	}
@@ -74,7 +76,7 @@ public class LinearSearch extends JPanel{
 	private void initialize_All() {
 		
 		///Top Menu Label
-		lblTitle = new JLabel("\"Linear Search\"", SwingConstants.CENTER);
+		lblTitle = new JLabel("\"Binary Search\"", SwingConstants.CENTER);
 		lblTitle.setFont(LABEL_FONT);
 		
 		///Center Panel
@@ -150,17 +152,33 @@ public class LinearSearch extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				{
 					if (txtInput1.getText().equals("") || txtInput2.getText().equals("") || txtInput3.getText().equals("") || txtInput4.getText().equals("") || txtInput5.getText().equals("") || txtSearch.getText().equals("") || txtTime.getText().equals("")) {
-						new CustomJOptionPane("Error !!!", "Please fill all textbox", "OK");
+						new CustomJOptionPane("ERROR!!!", "Please fill all textbox.", "Ok");
 					}else {
-						if (Integer.valueOf(txtTime.getText()) == 0) {
+						if (Integer.valueOf(txtTime.getText()) == 0){
 							new CustomJOptionPane("Error !!!", "Minimum time should be 1 (one) second.", "OK");
 						}else {
-							if (!linearSearchSimulation.getThreadState()) {
-								linearSearchSimulation.setTime(Integer.valueOf(txtTime.getText()));
-								linearSearchSimulation.setArrayValue(Integer.valueOf(txtInput1.getText()), Integer.valueOf(txtInput2.getText()), Integer.valueOf(txtInput3.getText()), Integer.valueOf(txtInput4.getText()), Integer.valueOf(txtInput5.getText()), Integer.valueOf(txtSearch.getText()));
-							}
+							binarySearchSimulation.setTime(Integer.valueOf(txtTime.getText()));
+							int n1 = Integer.valueOf(txtInput1.getText());
+							int n2 = Integer.valueOf(txtInput2.getText());
+							int n3 = Integer.valueOf(txtInput3.getText());
+							int n4 = Integer.valueOf(txtInput4.getText());
+							int n5 = Integer.valueOf(txtInput5.getText());
 							
-							linearSearchSimulation.start();
+							if((n1>=n2 && n2>=n3 && n3>=n4 && n4>=n5) || (n1<=n2 && n2<=n3 && n3<=n4 && n4<=n5)){
+								if(n1>=n2 && n2>=n3 && n3>=n4 && n4>=n5){
+									binarySearchSimulation.setOrder("desc");
+								}else {
+									binarySearchSimulation.setOrder("asc");
+								}
+								
+								if (!binarySearchSimulation.getThreadState()) {
+									binarySearchSimulation.setArrayValue(Integer.valueOf(txtInput1.getText()), Integer.valueOf(txtInput2.getText()), Integer.valueOf(txtInput3.getText()), Integer.valueOf(txtInput4.getText()), Integer.valueOf(txtInput5.getText()), Integer.valueOf(txtSearch.getText()));
+								}
+								
+								binarySearchSimulation.start();
+							}else{
+								new CustomJOptionPane("ERROR!!!", "Please enter values in ascending or descending order.", "Ok");
+							}
 						}
 					}
 				}
@@ -171,7 +189,8 @@ public class LinearSearch extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				linearSearchSimulation.stop();	/// Simulation Stop
+				
+				binarySearchSimulation.stop();	/// Simulation Stop
 			}
 		});
 		
@@ -181,7 +200,7 @@ public class LinearSearch extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				linearSearchSimulation.stop();
+				binarySearchSimulation.stop();
 				setVisible(false);
 				removeAll();
 				
@@ -207,9 +226,13 @@ public class LinearSearch extends JPanel{
 		/// Adding Text Components
 		inputPanel.add(inputPanelTxt, BorderLayout.CENTER);
 		inputPanel.add(inputPanelBtn, BorderLayout.EAST);
-		inputPanel.add(timePanel, BorderLayout.WEST);
+		inputPanel.add(timePanel,BorderLayout.WEST);
 		
-		drawPanel.add(linearSearchSimulation, BorderLayout.CENTER); 
+		///  Adding Visual Simulation to Main Screen
+		/*
+		 * Add Simulation Object Here
+		 */
+		drawPanel.add(binarySearchSimulation, BorderLayout.CENTER); 
 		
 		/// Adding All visual to Center
 		centerPanel.add(inputPanel, BorderLayout.PAGE_START);
