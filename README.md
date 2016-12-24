@@ -8,8 +8,11 @@ In other IDE, You need to add some custom project file.
 
 This Application Can Simulate all Algorithm. Very User Friendly Interface.
 
-Version: 1.0.0
+If you have any suggession or found any bugs, Please write them on Issues Tab.
 
+
+
+Version: 1.0.0
 Algorithms Added: 
     1. Linear Search
     2. Binary Search
