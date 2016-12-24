@@ -8,6 +8,10 @@ In other IDE, You need to add some custom project file.
 
 This Application Can Simulate all Algorithm. Very User Friendly Interface.
 
-In Every version, Some more Algorithm will be added. 
+Version: 1.0.0
 
-Version null;
+Algorithms Added: 
+    1. Linear Search
+    2. Binary Search
+    3. Bubble Sort
+    4. Selection Sort
