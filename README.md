@@ -11,7 +11,6 @@ This Application Can Simulate all Algorithm. Very User Friendly Interface.
 If you have any suggession or found any bugs, Please write them on Issues Tab.
 
 
-
 Version: 1.0.0
 Algorithms Added: 
     1. Linear Search
